@@ -1,0 +1,75 @@
+{%extends "base.html"%}
+
+{%block titulo%}
+Produtos
+{%endblock%}
+
+{%block conteudos%}
+
+<div class="container mt-4">
+
+    <h2 class="text-center">Produtos disponíveis</h2>
+    <p class="text-center">Clique em comprar o item caso tenha interesse</p>
+    <hr>
+    <div class="row">
+        {% for item in itens %}
+        <div class="col-md-4 mb-4">
+
+                <div class="card bg-dark text-white h-100">
+
+                {% if item.id == 1 %}
+                <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8"
+                class="card-img-top" style="height:200px; object-fit:cover;">
+
+                {% elif item.id == 2 %}
+                <img src="https://images.unsplash.com/photo-1587202372775-e229f172b9d7"
+                class="card-img-top" style="height:200px; object-fit:cover;">
+
+                {% elif item.id == 3 %}
+                <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+                class="card-img-top" style="height:200px; object-fit:cover;">
+
+                {% else %}
+                <img src="https://picsum.photos/400/300"
+                class="card-img-top" style="height:200px; object-fit:cover;">
+                {% endif %}
+
+                <div class="card-body">
+
+                    <h5 class="card-title">{{ item.nome }}</h5>
+
+                    <p class="card-text">
+                        <b>Código:</b> {{ item.cod_barras }}
+                    </p>
+
+                    <p class="card-text">
+                        <b>Preço:</b> R$ {{ item.preco }}
+                    </p>
+
+                    <p class="card-text">
+                        {{ item.descricao }}
+                    </p>
+
+                </div>
+
+                <div class="card-footer text-center">
+
+                    <button 
+                    class="btn btn-info btn-sm"
+                    data-bs-toggle="modal"
+                    data-bs-target="#Modal-MaisInfo-{{ item.id }}">
+                        Mais informações
+                    </button>
+
+                    <a href="{{ url_for('comprar', item_id=item.id) }}"
+                    class="btn btn-success btn-sm">
+                    Comprar
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{%endblock%}
